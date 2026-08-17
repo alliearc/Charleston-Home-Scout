@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///Users/allisonarcangel/Downloads/Charleston_Home_Scout.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#173b3a">
+<title>Charleston Home Scout</title>
+<style>
+:root{
+  --ink:#183432; --deep:#173b3a; --sea:#527d78; --mist:#eaf1ed;
+  --sand:#f5efe5; --paper:#fffdf8; --clay:#b96c50; --gold:#c1a15d;
+  --muted:#6d7975; --line:#d8ddd7; --shadow:0 12px 30px rgba(31,55,53,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink);
+  font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 5%, rgba(193,161,93,.14), transparent 24%),
+    linear-gradient(180deg,#edf4f0 0,#f8f5ee 36%,#f5f0e6 100%);
+  min-height:100vh;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.shell{max-width:1180px;margin:0 auto;padding:18px 16px 94px}
+.hero{
+  position:relative; overflow:hidden; border-radius:28px; padding:28px 26px;
+  background:linear-gradient(135deg,#173b3a 0%,#315f5a 58%,#b96c50 140%);
+  color:white; box-shadow:var(--shadow); margin-bottom:18px;
+}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.12);border-radius:50%}
+.hero:before{width:390px;height:390px;right:-120px;top:-180px}
+.hero:after{width:250px;height:250px;right:60px;bottom:-180px}
+.eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;opacity:.78}
+.hero h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2.2rem,7vw,4.8rem);line-height:.92;margin:.35rem 0 .6rem;letter-spacing:-.04em}
+.hero p{max-width:700px;margin:0;color:#e6efec;line-height:1.5}
+.hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:12px}
+.stat b{display:block;font-size:1.35rem}.stat span{font-size:.75rem;color:#dce8e4}
+.tabs{display:flex;gap:8px;overflow:auto;padding:3px 1px 10px;position:sticky;top:0;z-index:20;background:rgba(245,240,230,.92);backdrop-filter:blur(12px)}
+.tab{border:1px solid var(--line);background:var(--paper);padding:10px 14px;border-radius:999px;color:var(--ink);font-weight:750;white-space:nowrap}
+.tab.active{background:var(--deep);color:white;border-color:var(--deep)}
+.panel{display:none}.panel.active{display:block}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:18px 2px 12px}
+.section-title h2{font-family:Georgia,serif;font-size:1.65rem;font-weight:500;margin:0}
+.section-title p{margin:2px 0 0;color:var(--muted);font-size:.88rem}
+.card{background:rgba(255,253,248,.96);border:1px solid rgba(111,126,120,.18);border-radius:22px;box-shadow:0 7px 20px rgba(47,68,62,.07)}
+.filters{padding:14px;display:grid;grid-template-columns:1.4fr repeat(3,minmax(120px,.7fr));gap:9px;margin-bottom:12px}
+.control{border:1px solid var(--line);background:white;border-radius:13px;padding:10px 11px;color:var(--ink);width:100%}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.property{padding:16px;position:relative;overflow:hidden}
+.property:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--sea)}
+.property[data-kind="RENT"]:before{background:var(--gold)} .property[data-kind="SCOUT"]:before{background:var(--clay)}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.badge{padding:5px 8px;border-radius:999px;background:var(--mist);font-size:.68rem;font-weight:850;letter-spacing:.05em;text-transform:uppercase}
+.badge.kind{background:var(--deep);color:white}.badge.rent{background:#d9bf82;color:#3f3420}.badge.scout{background:#e7b9aa;color:#562e22}
+.property h3{font-family:Georgia,serif;font-size:1.2rem;margin:4px 0 5px;line-height:1.15}
+.sub{color:var(--muted);font-size:.82rem;line-height:1.3}
+.price{font-weight:850;margin:10px 0 8px}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:10px 0}
+.fact{background:#f6f5f0;border-radius:11px;padding:8px}.fact span{display:block;font-size:.64rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.fact b{font-size:.83rem}
+.actions{display:flex;gap:7px;margin-top:11px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:9px 11px;font-weight:800;background:var(--deep);color:white}
+.btn.secondary{background:#edf1ed;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost{background:white;color:var(--ink);border:1px solid var(--line)}
+.scout-card{padding:18px;margin-bottom:12px}
+.scout-head{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.scout-head h3{font-family:Georgia,serif;font-size:1.35rem;margin:.15rem 0}
+.rating-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:14px 0}
+.rate{border:1px solid var(--line);background:white;border-radius:13px;padding:10px 6px;font-weight:800}
+.rate.selected{background:var(--deep);color:white;border-color:var(--deep)}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}
+.why button{border:1px solid var(--line);background:#f7f5ef;border-radius:12px;padding:9px 7px;font-size:.78rem;font-weight:750}
+.why button.selected{background:#e2ece8;border-color:#89aaa3}
+textarea{min-height:76px;resize:vertical}
+.save-line{display:flex;justify-content:space-between;align-items:center;margin-top:7px;gap:8px}.saved{font-size:.75rem;color:var(--muted)}
+.area-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.area-card{padding:18px}
+.area-card h3{font-family:Georgia,serif;font-size:1.4rem;margin:0 0 4px}
+.meter{height:8px;border-radius:999px;background:#e8ebe6;overflow:hidden;margin-top:8px}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--sea),var(--gold));border-radius:999px}
+.area-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.chip{background:#f1f3ee;border:1px solid #e0e5df;border-radius:999px;padding:6px 9px;font-size:.75rem}
+.leader{padding:8px 15px}
+.leader-row{display:grid;grid-template-columns:40px 1fr 80px;gap:10px;align-items:center;padding:13px 2px;border-bottom:1px solid #ecece6}.leader-row:last-child{border-bottom:0}
+.rank{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--mist);font-weight:900}
+.dna{padding:20px;background:linear-gradient(135deg,#fffdf8,#eef4ef)}
+.dna-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.dna-item{background:white;border:1px solid var(--line);border-radius:15px;padding:11px}.dna-item span{display:block;color:var(--muted);font-size:.7rem;text-transform:uppercase}.dna-item b{font-size:.92rem}
+.compare-wrap{overflow:auto}.compare{width:100%;border-collapse:collapse;font-size:.82rem}.compare th,.compare td{padding:10px;border-bottom:1px solid #e8e9e4;text-align:left;white-space:nowrap}.compare th{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(18,40,38,.55);z-index:50;display:none;align-items:end;justify-content:center}.modal.open{display:flex}
+.sheet{background:var(--paper);width:min(720px,100%);max-height:89vh;overflow:auto;border-radius:26px 26px 0 0;padding:22px;box-shadow:0 -20px 50px rgba(0,0,0,.18)}
+.sheet h2{font-family:Georgia,serif;font-weight:500;margin:.2rem 0}.close{float:right;border:0;background:#eef1ed;border-radius:50%;width:38px;height:38px;font-size:1.2rem}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0}.detail{background:#f4f4ee;border-radius:13px;padding:10px}.detail span{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase}.detail b{font-size:.9rem}
+.bottom-nav{display:none}
+.callout{border-left:4px solid var(--clay);padding:12px 14px;background:#fff7f2;border-radius:0 14px 14px 0;color:#654035;font-size:.86rem;margin:12px 0}
+.export{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.hero-grid{grid-template-columns:repeat(2,1fr)}.dna-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){
+  .shell{padding:10px 10px 94px}.hero{border-radius:22px;padding:22px 18px}.hero h1{font-size:2.7rem}
+  .tabs{display:none}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}
+  .grid,.area-grid{grid-template-columns:1fr}.facts{grid-template-columns:repeat(2,1fr)}
+  .rating-row{grid-template-columns:repeat(2,1fr)}.why{grid-template-columns:1fr}
+  .dna-grid{grid-template-columns:repeat(2,1fr)}
+  .bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:8px;right:8px;bottom:8px;z-index:30;background:rgba(255,253,248,.95);border:1px solid var(--line);box-shadow:0 8px 30px rgba(23,59,58,.19);backdrop-filter:blur(14px);border-radius:18px;padding:7px}
+  .bottom-nav button{border:0;background:transparent;color:var(--muted);font-size:.63rem;padding:4px 1px}.bottom-nav button b{display:block;font-size:1.15rem;margin-bottom:2px}.bottom-nav button.active{color:var(--deep);font-weight:850}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="hero">
+    <div class="eyebrow">August 2026 · Field Notebook</div>
+    <h1>Charleston<br>Home Scout</h1>
+    <p>Not a listing tracker. A living record of which Charleston communities actually feel like home.</p>
+    <div class="hero-grid">
+      <div class="stat"><b id="statProps">22</b><span>places to investigate</span></div>
+      <div class="stat"><b id="statAreas">5</b><span>areas represented</span></div>
+      <div class="stat"><b id="statRated">0</b><span>scouted &amp; rated</span></div>
+      <div class="stat"><b id="statLove">0</b><span>❤️ love-this-area votes</span></div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="scout">🚗 Scout</button>
+    <button class="tab" data-tab="areas">📍 Areas</button>
+    <button class="tab" data-tab="properties">🏡 Properties</button>
+    <button class="tab" data-tab="shortlist">❤️ Our Charleston</button>
+    <button class="tab" data-tab="james">🌴 James Island</button>
+  </nav>
+
+  <section id="scout" class="panel active">
+    <div class="section-title"><div><h2>Scout Mode</h2><p>Rate the location, not whether the old listing is still available.</p></div></div>
+    <div class="callout"><b>Trip rule:</b> A sold property is still useful. You are collecting reactions to streets, communities, convenience and overall feel.</div>
+    <div id="scoutList"><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>802 Kings Oak Ct. $4</h3><div class="sub">Daniel Island · Governors Cay</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=802%20Kings%20Oak%20Ct.%20%244%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>25 min.</b></div>
+      <div class="fact"><span>Beach</span><b>25 min.</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>$495,000</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b1&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b1&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b1&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b1&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b1&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b1&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b1&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b1&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b1&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>130 River Landing Dr. Unit 10100</h3><div class="sub">Daniel Island · Daniels Landing</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=130%20River%20Landing%20Dr.%20Unit%2010100%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>29 min.</b></div>
+      <div class="fact"><span>Beach</span><b>25 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$499,000 (taxes $9,000)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b2&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b2&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b2&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b2&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b2&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b2&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b2&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b2&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b2&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>500 Bucksley Ln. Unit 301</h3><div class="sub">Daniel Island · 254 Seven Farms Drive</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=500%20Bucksley%20Ln.%20Unit%20301%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>24 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$475,000 (taxes $4,000)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b3&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b3&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b3&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b3&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b3&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b3&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b3&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b3&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b3&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>The Bluffs at Pinefield Townhomes</h3><div class="sub">Cainhoy / Daniel Island · Bluffs at Pinefield</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Bluffs%20at%20Pinefield%20Townhomes%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>29 min.</b></div>
+      <div class="fact"><span>Beach</span><b>—</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>mid-$500s · 4.99% interest rate!</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b4&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b4&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b4&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b4&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b4&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b4&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b4&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b4&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b4&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>422 Katies Scenic Ct.</h3><div class="sub">Cainhoy / Daniel Island · Bluffs at Pinefield</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=422%20Katies%20Scenic%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>22 min.</b></div>
+      <div class="fact"><span>Beach</span><b>—</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>$598,500</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b5&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b5&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b5&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b5&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b5&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b5&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b5&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b5&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b5&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1146 Bright Ct.</h3><div class="sub">James Island · quiet neighborhood with nice homes &amp; cul-de-sac</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1146%20Bright%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>13 min.</b></div>
+      <div class="fact"><span>Example</span><b>House</b></div>
+      <div class="fact"><span>Price clue</span><b>$769,000</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b6&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b6&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b6&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b6&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b6&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b6&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b6&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b6&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b6&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>815 Soaring Ln.</h3><div class="sub">James Island · Eaglewood Retreat</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=815%20Soaring%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>15 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20–30 min.</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>$599,000</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b7&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b7&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b7&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b7&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b7&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b7&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b7&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b7&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b7&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1749 Lady Ashley St.</h3><div class="sub">James Island · avg. neighborhood w/carports</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1749%20Lady%20Ashley%20St.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>17 min.</b></div>
+      <div class="fact"><span>Beach</span><b>13 min.</b></div>
+      <div class="fact"><span>Example</span><b>House</b></div>
+      <div class="fact"><span>Price clue</span><b>$529,000</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b8&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b8&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b8&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b8&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b8&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b8&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b8&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b8&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b8&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1826 Telfair Way</h3><div class="sub">James Island · Mira Vista</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1826%20Telfair%20Way%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>11 min.</b></div>
+      <div class="fact"><span>Beach</span><b>9 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$385,000 (taxes $4,416)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b9&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b9&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b9&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b9&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b9&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b9&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b9&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b9&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b9&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1530 Fort Johnson Rd. Apt. 1K</h3><div class="sub">James Island · Brigadier Condominium</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1530%20Fort%20Johnson%20Rd.%20Apt.%201K%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>15–20 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$265,000 (taxes $1,400)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b10&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b10&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b10&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b10&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b10&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b10&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b10&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b10&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b10&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1530 Johnson Rd. Apt. 1E</h3><div class="sub">James Island · Brigadier Condominium</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1530%20Johnson%20Rd.%20Apt.%201E%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>15–20 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$309,900 (taxes $1,400)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b11&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b11&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b11&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b11&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b11&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b11&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b11&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b11&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b11&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1216 Telfair Way</h3><div class="sub">James Island · Mira Vista</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1216%20Telfair%20Way%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>11 min.</b></div>
+      <div class="fact"><span>Beach</span><b>9 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$399,000 (taxes $2,053)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b12&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b12&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b12&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b12&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b12&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b12&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b12&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b12&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b12&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>1984 Folly Rd. Unit B302</h3><div class="sub">James Island · Pelican Point Villas</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1984%20Folly%20Rd.%20Unit%20B302%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>10 min.</b></div>
+      <div class="fact"><span>Beach</span><b>5 min.</b></div>
+      <div class="fact"><span>Example</span><b>Condo</b></div>
+      <div class="fact"><span>Price clue</span><b>$419,000 (taxes $3,223)</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b13&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b13&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b13&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b13&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b13&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b13&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b13&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b13&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b13&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>469 Caledon Ct.</h3><div class="sub">Johns Island · Indigo Grove townhomes</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=469%20Caledon%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>19 min.</b></div>
+      <div class="fact"><span>Beach</span><b>31 min.</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>$499,990</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b14&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b14&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b14&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b14&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b14&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b14&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b14&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b14&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b14&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>202 Laurelhurst Ln.</h3><div class="sub">Johns Island · Rhetts Cove Community</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=202%20Laurelhurst%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>21 min.</b></div>
+      <div class="fact"><span>Beach</span><b>27 min.</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>$439,900</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b15&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b15&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b15&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b15&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b15&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b15&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b15&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b15&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b15&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind ">BUY</span><h3>2126 Boykin Ln.</h3><div class="sub">West Ashley · Church Creek Landing</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=2126%20Boykin%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>20 min.</b></div>
+      <div class="fact"><span>Beach</span><b>31 min.</b></div>
+      <div class="fact"><span>Example</span><b>House</b></div>
+      <div class="fact"><span>Price clue</span><b>$650,000</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;b16&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;b16&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;b16&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;b16&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;b16&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;b16&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;b16&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;b16&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;b16&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind rent">RENT</span><h3>515 Robert Daniel Dr.</h3><div class="sub">Daniel Island · Wharf 7</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=515%20Robert%20Daniel%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>21 min.</b></div>
+      <div class="fact"><span>Beach</span><b>19 min.</b></div>
+      <div class="fact"><span>Example</span><b>Apartment</b></div>
+      <div class="fact"><span>Price clue</span><b>$3,395/mo</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;r1&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;r1&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;r1&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;r1&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;r1&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;r1&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;r1&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;r1&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;r1&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind rent">RENT</span><h3>601 Robert Daniel Dr.</h3><div class="sub">Daniel Island · The Port House</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=601%20Robert%20Daniel%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>21 min.</b></div>
+      <div class="fact"><span>Beach</span><b>19 min.</b></div>
+      <div class="fact"><span>Example</span><b>Townhome</b></div>
+      <div class="fact"><span>Price clue</span><b>$2,907/mo</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;r2&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;r2&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;r2&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;r2&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;r2&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;r2&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;r2&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;r2&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;r2&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind rent">RENT</span><h3>455 Seven Farms Dr.</h3><div class="sub">Daniel Island · Daniel Island Village</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=455%20Seven%20Farms%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>24 min.</b></div>
+      <div class="fact"><span>Beach</span><b>22 min.</b></div>
+      <div class="fact"><span>Example</span><b>Apartment</b></div>
+      <div class="fact"><span>Price clue</span><b>$3,800/mo</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;r3&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;r3&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;r3&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;r3&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;r3&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;r3&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;r3&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;r3&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;r3&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind rent">RENT</span><h3>650 Enterprise Blvd.</h3><div class="sub">Daniel Island · Cooper River Farms</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=650%20Enterprise%20Blvd.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>23 min.</b></div>
+      <div class="fact"><span>Beach</span><b>22 min.</b></div>
+      <div class="fact"><span>Example</span><b>Apartment</b></div>
+      <div class="fact"><span>Price clue</span><b>$2,341/mo</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;r4&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;r4&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;r4&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;r4&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;r4&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;r4&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;r4&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;r4&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;r4&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind scout">LOCATION ONLY</span><h3>446 Woodland Shores Rd.</h3><div class="sub">James Island · quiet neighborhood</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=446%20Woodland%20Shores%20Rd.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>13 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min. (Folly)</b></div>
+      <div class="fact"><span>Example</span><b>Apt. in house</b></div>
+      <div class="fact"><span>Price clue</span><b>Location only</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;s1&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;s1&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;s1&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;s1&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;s1&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;s1&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;s1&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;s1&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;s1&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article><article class="card scout-card">
+    <div class="scout-head"><div><span class="badge kind scout">LOCATION ONLY</span><h3>2144 Golfview Dr.</h3><div class="sub">James Island · quiet neighborhood by golf course</div></div>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=2144%20Golfview%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>13 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min. (Folly)</b></div>
+      <div class="fact"><span>Example</span><b>House</b></div>
+      <div class="fact"><span>Price clue</span><b>Location only</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row"><button class="rate " onclick="saveState(&#39;s2&#39;,{rating:&#39;😍 Love&#39;})">😍 Love</button><button class="rate " onclick="saveState(&#39;s2&#39;,{rating:&#39;🙂 Maybe&#39;})">🙂 Maybe</button><button class="rate " onclick="saveState(&#39;s2&#39;,{rating:&#39;😐 Meh&#39;})">😐 Meh</button><button class="rate " onclick="saveState(&#39;s2&#39;,{rating:&#39;🚫 Nope&#39;})">🚫 Nope</button></div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why"><button class="" onclick="saveState(&#39;s2&#39;,{why:&#39;Actual home&#39;})">🏡 Actual home</button><button class="" onclick="saveState(&#39;s2&#39;,{why:&#39;Location&#39;})">📍 Location</button><button class="" onclick="saveState(&#39;s2&#39;,{why:&#39;Both&#39;})">❤️ Both</button></div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState(&#39;s2&#39;,{note:this.value})"></textarea>
+    <div class="save-line"><span class="saved">Not rated yet</span><button class="btn ghost" onclick="saveState(&#39;s2&#39;,{favorite:true})">♡ Favorite</button></div>
+  </article></div>
+  </section>
+
+  <section id="areas" class="panel">
+    <div class="section-title"><div><h2>Explore by Area</h2><p>Your evolving neighborhood report cards.</p></div></div>
+    <div id="areaGrid" class="area-grid"><article class="card area-card"><div class="eyebrow" style="color:var(--clay);opacity:1">7 saved clues</div><h3>Daniel Island</h3>
+      <div class="sub">Not scouted yet</div>
+      <div class="meter"><i style="width:5%"></i></div>
+      <div class="area-meta"><span class="chip">🚗 closest downtown: 21 min</span><span class="chip">BUY</span><span class="chip">RENT</span></div>
+      <div class="actions"><button class="btn" onclick="filterArea(&#39;Daniel Island&#39;)">See clues</button></div></article><article class="card area-card"><div class="eyebrow" style="color:var(--clay);opacity:1">2 saved clues</div><h3>Cainhoy / Daniel Island</h3>
+      <div class="sub">Not scouted yet</div>
+      <div class="meter"><i style="width:5%"></i></div>
+      <div class="area-meta"><span class="chip">🚗 closest downtown: 22 min</span><span class="chip">BUY</span></div>
+      <div class="actions"><button class="btn" onclick="filterArea(&#39;Cainhoy / Daniel Island&#39;)">See clues</button></div></article><article class="card area-card"><div class="eyebrow" style="color:var(--clay);opacity:1">10 saved clues</div><h3>James Island</h3>
+      <div class="sub">Not scouted yet</div>
+      <div class="meter"><i style="width:5%"></i></div>
+      <div class="area-meta"><span class="chip">🚗 closest downtown: 10 min</span><span class="chip">BUY</span><span class="chip">SCOUT</span></div>
+      <div class="actions"><button class="btn" onclick="filterArea(&#39;James Island&#39;)">See clues</button></div></article><article class="card area-card"><div class="eyebrow" style="color:var(--clay);opacity:1">2 saved clues</div><h3>Johns Island</h3>
+      <div class="sub">Not scouted yet</div>
+      <div class="meter"><i style="width:5%"></i></div>
+      <div class="area-meta"><span class="chip">🚗 closest downtown: 19 min</span><span class="chip">BUY</span></div>
+      <div class="actions"><button class="btn" onclick="filterArea(&#39;Johns Island&#39;)">See clues</button></div></article><article class="card area-card"><div class="eyebrow" style="color:var(--clay);opacity:1">1 saved clues</div><h3>West Ashley</h3>
+      <div class="sub">Not scouted yet</div>
+      <div class="meter"><i style="width:5%"></i></div>
+      <div class="area-meta"><span class="chip">🚗 closest downtown: 20 min</span><span class="chip">BUY</span></div>
+      <div class="actions"><button class="btn" onclick="filterArea(&#39;West Ashley&#39;)">See clues</button></div></article></div>
+  </section>
+
+  <section id="properties" class="panel">
+    <div class="section-title"><div><h2>Property Breadcrumbs</h2><p>The homes are clues pointing you toward places worth exploring.</p></div></div>
+    <div class="card filters">
+      <input id="search" class="control" placeholder="Search address, community or area…">
+      <select id="kindFilter" class="control"><option value="">All types</option><option>BUY</option><option>RENT</option><option>SCOUT</option></select>
+      <select id="areaFilter" class="control"><option value="">All areas</option><option value="Cainhoy / Daniel Island">Cainhoy / Daniel Island</option><option value="Daniel Island">Daniel Island</option><option value="James Island">James Island</option><option value="Johns Island">Johns Island</option><option value="West Ashley">West Ashley</option></select>
+      <select id="homeFilter" class="control"><option value="">All housing</option><option>House</option><option>Townhome</option><option>Condo</option><option>Apartment</option></select>
+    </div>
+    <div id="propertyGrid" class="grid"><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Daniel Island</span></div>
+    <h3>802 Kings Oak Ct. $4</h3>
+    <div class="sub">Governors Cay · Townhome</div>
+    <div class="price">$495,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>25 min.</b></div>
+      <div class="fact"><span>Beach</span><b>25 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b1&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=802%20Kings%20Oak%20Ct.%20%244%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b1&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Daniel Island</span></div>
+    <h3>130 River Landing Dr. Unit 10100</h3>
+    <div class="sub">Daniels Landing · Condo</div>
+    <div class="price">$499,000 (taxes $9,000)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>29 min.</b></div>
+      <div class="fact"><span>Beach</span><b>25 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>6/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b2&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=130%20River%20Landing%20Dr.%20Unit%2010100%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b2&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Daniel Island</span></div>
+    <h3>500 Bucksley Ln. Unit 301</h3>
+    <div class="sub">254 Seven Farms Drive · Condo</div>
+    <div class="price">$475,000 (taxes $4,000)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>24 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>?</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b3&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=500%20Bucksley%20Ln.%20Unit%20301%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b3&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Cainhoy / Daniel Island</span></div>
+    <h3>The Bluffs at Pinefield Townhomes</h3>
+    <div class="sub">Bluffs at Pinefield · Townhome</div>
+    <div class="price">mid-$500s · 4.99% interest rate!</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>29 min.</b></div>
+      <div class="fact"><span>Beach</span><b>—</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/3.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>—</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b4&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Bluffs%20at%20Pinefield%20Townhomes%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b4&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Cainhoy / Daniel Island</span></div>
+    <h3>422 Katies Scenic Ct.</h3>
+    <div class="sub">Bluffs at Pinefield · Townhome</div>
+    <div class="price">$598,500</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>22 min.</b></div>
+      <div class="fact"><span>Beach</span><b>—</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/3.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>1/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b5&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=422%20Katies%20Scenic%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b5&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1146 Bright Ct.</h3>
+    <div class="sub">quiet neighborhood with nice homes &amp; cul-de-sac · House</div>
+    <div class="price">$769,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>13 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>7/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b6&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1146%20Bright%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b6&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>815 Soaring Ln.</h3>
+    <div class="sub">Eaglewood Retreat · Townhome</div>
+    <div class="price">$599,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>15 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20–30 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>7/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b7&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=815%20Soaring%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b7&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1749 Lady Ashley St.</h3>
+    <div class="sub">avg. neighborhood w/carports · House</div>
+    <div class="price">$529,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>17 min.</b></div>
+      <div class="fact"><span>Beach</span><b>13 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>4/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>5/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b8&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1749%20Lady%20Ashley%20St.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b8&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1826 Telfair Way</h3>
+    <div class="sub">Mira Vista · Condo</div>
+    <div class="price">$385,000 (taxes $4,416)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>11 min.</b></div>
+      <div class="fact"><span>Beach</span><b>9 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b9&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1826%20Telfair%20Way%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b9&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1530 Fort Johnson Rd. Apt. 1K</h3>
+    <div class="sub">Brigadier Condominium · Condo</div>
+    <div class="price">$265,000 (taxes $1,400)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>15–20 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/1.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>6/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b10&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1530%20Fort%20Johnson%20Rd.%20Apt.%201K%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b10&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1530 Johnson Rd. Apt. 1E</h3>
+    <div class="sub">Brigadier Condominium · Condo</div>
+    <div class="price">$309,900 (taxes $1,400)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>15–20 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>6/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b11&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1530%20Johnson%20Rd.%20Apt.%201E%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b11&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1216 Telfair Way</h3>
+    <div class="sub">Mira Vista · Condo</div>
+    <div class="price">$399,000 (taxes $2,053)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>11 min.</b></div>
+      <div class="fact"><span>Beach</span><b>9 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b12&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1216%20Telfair%20Way%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b12&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1984 Folly Rd. Unit B302</h3>
+    <div class="sub">Pelican Point Villas · Condo</div>
+    <div class="price">$419,000 (taxes $3,223)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>10 min.</b></div>
+      <div class="fact"><span>Beach</span><b>5 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b13&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1984%20Folly%20Rd.%20Unit%20B302%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b13&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Johns Island</span></div>
+    <h3>469 Caledon Ct.</h3>
+    <div class="sub">Indigo Grove townhomes · Townhome</div>
+    <div class="price">$499,990</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>19 min.</b></div>
+      <div class="fact"><span>Beach</span><b>31 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>4/3.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>6/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b14&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=469%20Caledon%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b14&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">Johns Island</span></div>
+    <h3>202 Laurelhurst Ln.</h3>
+    <div class="sub">Rhetts Cove Community · Townhome</div>
+    <div class="price">$439,900</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>21 min.</b></div>
+      <div class="fact"><span>Beach</span><b>27 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>1/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b15&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=202%20Laurelhurst%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b15&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">West Ashley</span></div>
+    <h3>2126 Boykin Ln.</h3>
+    <div class="sub">Church Creek Landing · House</div>
+    <div class="price">$650,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>20 min.</b></div>
+      <div class="fact"><span>Beach</span><b>31 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>5/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b16&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=2126%20Boykin%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b16&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="RENT">
+    <div class="badges"><span class="badge kind rent">RENT</span><span class="badge">Daniel Island</span></div>
+    <h3>515 Robert Daniel Dr.</h3>
+    <div class="sub">Wharf 7 · Apartment</div>
+    <div class="price">$3,395/mo</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>21 min.</b></div>
+      <div class="fact"><span>Beach</span><b>19 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>4/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;r1&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=515%20Robert%20Daniel%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;r1&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="RENT">
+    <div class="badges"><span class="badge kind rent">RENT</span><span class="badge">Daniel Island</span></div>
+    <h3>601 Robert Daniel Dr.</h3>
+    <div class="sub">The Port House · Townhome</div>
+    <div class="price">$2,907/mo</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>21 min.</b></div>
+      <div class="fact"><span>Beach</span><b>19 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>7/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;r2&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=601%20Robert%20Daniel%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;r2&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="RENT">
+    <div class="badges"><span class="badge kind rent">RENT</span><span class="badge">Daniel Island</span></div>
+    <h3>455 Seven Farms Dr.</h3>
+    <div class="sub">Daniel Island Village · Apartment</div>
+    <div class="price">$3,800/mo</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>24 min.</b></div>
+      <div class="fact"><span>Beach</span><b>22 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>7/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;r3&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=455%20Seven%20Farms%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;r3&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="RENT">
+    <div class="badges"><span class="badge kind rent">RENT</span><span class="badge">Daniel Island</span></div>
+    <h3>650 Enterprise Blvd.</h3>
+    <div class="sub">Cooper River Farms · Apartment</div>
+    <div class="price">$2,341/mo</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>23 min.</b></div>
+      <div class="fact"><span>Beach</span><b>22 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>4/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;r4&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=650%20Enterprise%20Blvd.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;r4&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="SCOUT">
+    <div class="badges"><span class="badge kind scout">LOCATION ONLY</span><span class="badge">James Island</span></div>
+    <h3>446 Woodland Shores Rd.</h3>
+    <div class="sub">quiet neighborhood · Apt. in house</div>
+    <div class="price">Location only</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>13 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min. (Folly)</b></div>
+      <div class="fact"><span>BR / BA</span><b>—</b></div>
+      <div class="fact"><span>Flood risk</span><b>—</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;s1&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=446%20Woodland%20Shores%20Rd.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;s1&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="SCOUT">
+    <div class="badges"><span class="badge kind scout">LOCATION ONLY</span><span class="badge">James Island</span></div>
+    <h3>2144 Golfview Dr.</h3>
+    <div class="sub">quiet neighborhood by golf course · House</div>
+    <div class="price">Location only</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>13 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min. (Folly)</b></div>
+      <div class="fact"><span>BR / BA</span><b>—</b></div>
+      <div class="fact"><span>Flood risk</span><b>—</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;s2&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=2144%20Golfview%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;s2&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article></div>
+  </section>
+
+  <section id="shortlist" class="panel">
+    <div class="section-title"><div><h2>Our Charleston</h2><p>The answer that gets clearer every time you scout.</p></div></div>
+    <div class="card dna">
+      <div class="eyebrow" style="color:var(--clay);opacity:1">Home DNA · first draft from your spreadsheet</div>
+      <h2 style="font-family:Georgia,serif;font-weight:500;margin:.35rem 0">What seems to matter</h2>
+      <div class="dna-grid">
+        <div class="dna-item"><span>Downtown</span><b>Roughly ≤ 25 min</b></div>
+        <div class="dna-item"><span>Home type</span><b>House / townhome / condo</b></div>
+        <div class="dna-item"><span>Flood risk</span><b>Track it explicitly</b></div>
+        <div class="dna-item"><span>Lifestyle</span><b>Community feel matters</b></div>
+        <div class="dna-item"><span>Space</span><b>2–4 BR examples</b></div>
+        <div class="dna-item"><span>Retirement bridge</span><b>Rent data preserved</b></div>
+        <div class="dna-item"><span>Beach</span><b>Useful, not everything</b></div>
+        <div class="dna-item"><span>Key question</span><b>Would we live here?</b></div>
+      </div>
+    </div>
+    <div class="section-title"><div><h2>Area Leaderboard</h2><p>Based only on your scouting ratings saved on this device.</p></div></div>
+    <div id="leaderboard" class="card leader"><div class="empty">Your leaderboard will appear as soon as you start rating scouting stops.</div></div>
+    <div class="section-title"><div><h2>Saved Favorites</h2><p>Properties or locations marked ❤️.</p></div></div>
+    <div id="favorites" class="grid"><div class="card empty">Tap ♡ on any place you want to keep at the top of the pile.</div></div>
+    <div class="section-title"><div><h2>Take Your Notes With You</h2><p>Export a scouting backup from this browser.</p></div></div>
+    <div class="card" style="padding:16px">
+      <div class="export">
+        <button class="btn" onclick="exportCSV()">Export Scout Notes (CSV)</button>
+        <button class="btn secondary" onclick="exportJSON()">Backup App Data</button>
+        <button class="btn ghost" onclick="resetScout()">Reset Ratings</button>
+      </div>
+      <div class="sub">Ratings and notes are stored locally in this browser. Exporting gives you a portable backup.</div>
+    </div>
+  </section>
+
+  <section id="james" class="panel">
+    <div class="section-title"><div><h2>James Island Deep Dive</h2><p>Your existing comparison, brought into the scouting app.</p></div></div>
+    <div class="card compare-wrap"><table class="compare" id="compareTable"><thead><tr><th>Community</th><th>Downtown</th><th>Folly</th><th>Overall feel</th><th>Space</th><th>Cost</th><th>Your fit</th></tr></thead><tbody><tr><td><b>Mira Vista</b></td><td>Excellent</td><td>Good</td><td>Gated, landscaped, resort-like</td><td>Moderate</td><td>Mid-high</td><td><b>9/10</b></td></tr><tr><td><b>Pelican Pointe</b></td><td>Fair-good</td><td>Excellent</td><td>Newer, elevated buildings, beach-condo feel</td><td>Best</td><td>High</td><td><b>8/10</b></td></tr><tr><td><b>Point James</b></td><td>Good</td><td>Good</td><td>Older but established</td><td>Moderate</td><td>Best value</td><td><b>7.5/10</b></td></tr><tr><td><b>Brigadier</b></td><td>Good</td><td>Good</td><td>Basic, highly unit-dependent</td><td>Very variable</td><td>Low-mid</td><td><b>6/10</b></td></tr><tr><td><b>The Peninsula</b></td><td>Excellent</td><td>Good</td><td>Similar location to Mira Vista</td><td>Moderate</td><td>Lower than Mira Vista</td><td><b>Too much unresolved risk for now</b></td></tr></tbody></table></div>
+    <div class="section-title"><div><h2>James Island Clues</h2><p>Saved examples from BUY + location-only scouting.</p></div></div>
+    <div id="jamesGrid" class="grid"><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1146 Bright Ct.</h3>
+    <div class="sub">quiet neighborhood with nice homes &amp; cul-de-sac · House</div>
+    <div class="price">$769,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>13 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>7/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b6&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1146%20Bright%20Ct.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b6&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>815 Soaring Ln.</h3>
+    <div class="sub">Eaglewood Retreat · Townhome</div>
+    <div class="price">$599,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>15 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20–30 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>7/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b7&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=815%20Soaring%20Ln.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b7&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1749 Lady Ashley St.</h3>
+    <div class="sub">avg. neighborhood w/carports · House</div>
+    <div class="price">$529,000</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>17 min.</b></div>
+      <div class="fact"><span>Beach</span><b>13 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>4/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>5/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b8&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1749%20Lady%20Ashley%20St.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b8&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1826 Telfair Way</h3>
+    <div class="sub">Mira Vista · Condo</div>
+    <div class="price">$385,000 (taxes $4,416)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>11 min.</b></div>
+      <div class="fact"><span>Beach</span><b>9 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b9&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1826%20Telfair%20Way%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b9&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1530 Fort Johnson Rd. Apt. 1K</h3>
+    <div class="sub">Brigadier Condominium · Condo</div>
+    <div class="price">$265,000 (taxes $1,400)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>15–20 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/1.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>6/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b10&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1530%20Fort%20Johnson%20Rd.%20Apt.%201K%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b10&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1530 Johnson Rd. Apt. 1E</h3>
+    <div class="sub">Brigadier Condominium · Condo</div>
+    <div class="price">$309,900 (taxes $1,400)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>16 min.</b></div>
+      <div class="fact"><span>Beach</span><b>15–20 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>3/2.5</b></div>
+      <div class="fact"><span>Flood risk</span><b>6/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b11&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1530%20Johnson%20Rd.%20Apt.%201E%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b11&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1216 Telfair Way</h3>
+    <div class="sub">Mira Vista · Condo</div>
+    <div class="price">$399,000 (taxes $2,053)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>11 min.</b></div>
+      <div class="fact"><span>Beach</span><b>9 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b12&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1216%20Telfair%20Way%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b12&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="BUY">
+    <div class="badges"><span class="badge kind ">BUY</span><span class="badge">James Island</span></div>
+    <h3>1984 Folly Rd. Unit B302</h3>
+    <div class="sub">Pelican Point Villas · Condo</div>
+    <div class="price">$419,000 (taxes $3,223)</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>10 min.</b></div>
+      <div class="fact"><span>Beach</span><b>5 min.</b></div>
+      <div class="fact"><span>BR / BA</span><b>2/2</b></div>
+      <div class="fact"><span>Flood risk</span><b>9/10</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;b13&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=1984%20Folly%20Rd.%20Unit%20B302%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;b13&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="SCOUT">
+    <div class="badges"><span class="badge kind scout">LOCATION ONLY</span><span class="badge">James Island</span></div>
+    <h3>446 Woodland Shores Rd.</h3>
+    <div class="sub">quiet neighborhood · Apt. in house</div>
+    <div class="price">Location only</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>13 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min. (Folly)</b></div>
+      <div class="fact"><span>BR / BA</span><b>—</b></div>
+      <div class="fact"><span>Flood risk</span><b>—</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;s1&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=446%20Woodland%20Shores%20Rd.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;s1&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article><article class="card property" data-kind="SCOUT">
+    <div class="badges"><span class="badge kind scout">LOCATION ONLY</span><span class="badge">James Island</span></div>
+    <h3>2144 Golfview Dr.</h3>
+    <div class="sub">quiet neighborhood by golf course · House</div>
+    <div class="price">Location only</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>13 min.</b></div>
+      <div class="fact"><span>Beach</span><b>20 min. (Folly)</b></div>
+      <div class="fact"><span>BR / BA</span><b>—</b></div>
+      <div class="fact"><span>Flood risk</span><b>—</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail(&#39;s2&#39;)">View</button>
+      <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=2144%20Golfview%20Dr.%2C%20Charleston%20SC" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState(&#39;s2&#39;,{favorite:true})">♡ Save</button>
+    </div>
+  </article></div>
+  </section>
+</div>
+
+<div class="bottom-nav">
+  <button class="active" data-tab="scout"><b>🚗</b>Scout</button>
+  <button data-tab="areas"><b>📍</b>Areas</button>
+  <button data-tab="properties"><b>🏡</b>Homes</button>
+  <button data-tab="shortlist"><b>❤️</b>Ours</button>
+  <button data-tab="james"><b>🌴</b>James</button>
+</div>
+
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()">
+  <div class="sheet">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const properties = [{"id": "b1", "kind": "BUY", "address": "802 Kings Oak Ct. $4", "area": "Daniel Island", "downtown": "25 min.", "beach": "25 min.", "community": "Governors Cay", "type": "Townhome", "flood": "9/10", "garage": "yes/2 car", "beds": "2/2.5", "sqft": "1,791", "price": "$495,000", "hoa": "$412/mo", "notes": ""}, {"id": "b2", "kind": "BUY", "address": "130 River Landing Dr. Unit 10100", "area": "Daniel Island", "downtown": "29 min.", "beach": "25 min.", "community": "Daniels Landing", "type": "Condo", "flood": "6/10", "garage": "no", "beds": "2/2", "sqft": "1,119", "price": "$499,000 (taxes $9,000)", "hoa": "$600/mo", "notes": ""}, {"id": "b3", "kind": "BUY", "address": "500 Bucksley Ln. Unit 301", "area": "Daniel Island", "downtown": "24 min.", "beach": "20 min.", "community": "254 Seven Farms Drive", "type": "Condo", "flood": "?", "garage": "no", "beds": "3/2", "sqft": "1,353", "price": "$475,000 (taxes $4,000)", "hoa": "$508/mo", "notes": ""}, {"id": "b4", "kind": "BUY", "address": "The Bluffs at Pinefield Townhomes", "area": "Cainhoy / Daniel Island", "downtown": "29 min.", "beach": "", "community": "Bluffs at Pinefield", "type": "Townhome", "flood": "", "garage": "yes/1 car", "beds": "3/3.5", "sqft": "1,906", "price": "mid-$500s · 4.99% interest rate!", "hoa": "$300/mo", "notes": ""}, {"id": "b5", "kind": "BUY", "address": "422 Katies Scenic Ct.", "area": "Cainhoy / Daniel Island", "downtown": "22 min.", "beach": "", "community": "Bluffs at Pinefield", "type": "Townhome", "flood": "1/10", "garage": "yes/1 car", "beds": "3/3.5", "sqft": "2,260", "price": "$598,500", "hoa": "$305/mo", "notes": ""}, {"id": "b6", "kind": "BUY", "address": "1146 Bright Ct.", "area": "James Island", "downtown": "16 min.", "beach": "13 min.", "community": "quiet neighborhood with nice homes & cul-de-sac", "type": "House", "flood": "7/10", "garage": "yes", "beds": "3/2.5", "sqft": "2,432", "price": "$769,000", "hoa": "?", "notes": ""}, {"id": "b7", "kind": "BUY", "address": "815 Soaring Ln.", "area": "James Island", "downtown": "15 min.", "beach": "20–30 min.", "community": "Eaglewood Retreat", "type": "Townhome", "flood": "7/10", "garage": "yes", "beds": "3/2.5", "sqft": "1,848", "price": "$599,000", "hoa": "$337/mo", "notes": ""}, {"id": "b8", "kind": "BUY", "address": "1749 Lady Ashley St.", "area": "James Island", "downtown": "17 min.", "beach": "13 min.", "community": "avg. neighborhood w/carports", "type": "House", "flood": "5/10", "garage": "no", "beds": "4/2", "sqft": "1,250", "price": "$529,000", "hoa": "?", "notes": ""}, {"id": "b9", "kind": "BUY", "address": "1826 Telfair Way", "area": "James Island", "downtown": "11 min.", "beach": "9 min.", "community": "Mira Vista", "type": "Condo", "flood": "9/10", "garage": "no", "beds": "2/2", "sqft": "1,120", "price": "$385,000 (taxes $4,416)", "hoa": "$611/mo", "notes": ""}, {"id": "b10", "kind": "BUY", "address": "1530 Fort Johnson Rd. Apt. 1K", "area": "James Island", "downtown": "16 min.", "beach": "15–20 min.", "community": "Brigadier Condominium", "type": "Condo", "flood": "6/10", "garage": "no", "beds": "2/1.5", "sqft": "1,160", "price": "$265,000 (taxes $1,400)", "hoa": "$525/mo", "notes": ""}, {"id": "b11", "kind": "BUY", "address": "1530 Johnson Rd. Apt. 1E", "area": "James Island", "downtown": "16 min.", "beach": "15–20 min.", "community": "Brigadier Condominium", "type": "Condo", "flood": "6/10", "garage": "no", "beds": "3/2.5", "sqft": "1,472", "price": "$309,900 (taxes $1,400)", "hoa": "$475/mo", "notes": ""}, {"id": "b12", "kind": "BUY", "address": "1216 Telfair Way", "area": "James Island", "downtown": "11 min.", "beach": "9 min.", "community": "Mira Vista", "type": "Condo", "flood": "9/10", "garage": "no", "beds": "2/2", "sqft": "1,120", "price": "$399,000 (taxes $2,053)", "hoa": "$626/mo", "notes": ""}, {"id": "b13", "kind": "BUY", "address": "1984 Folly Rd. Unit B302", "area": "James Island", "downtown": "10 min.", "beach": "5 min.", "community": "Pelican Point Villas", "type": "Condo", "flood": "9/10", "garage": "no", "beds": "2/2", "sqft": "1,133", "price": "$419,000 (taxes $3,223)", "hoa": "$645/mo", "notes": ""}, {"id": "b14", "kind": "BUY", "address": "469 Caledon Ct.", "area": "Johns Island", "downtown": "19 min.", "beach": "31 min.", "community": "Indigo Grove townhomes", "type": "Townhome", "flood": "6/10", "garage": "yes", "beds": "4/3.5", "sqft": "2,089", "price": "$499,990", "hoa": "?", "notes": ""}, {"id": "b15", "kind": "BUY", "address": "202 Laurelhurst Ln.", "area": "Johns Island", "downtown": "21 min.", "beach": "27 min.", "community": "Rhetts Cove Community", "type": "Townhome", "flood": "1/10", "garage": "yes", "beds": "3/2.5", "sqft": "1,957", "price": "$439,900", "hoa": "?", "notes": ""}, {"id": "b16", "kind": "BUY", "address": "2126 Boykin Ln.", "area": "West Ashley", "downtown": "20 min.", "beach": "31 min.", "community": "Church Creek Landing", "type": "House", "flood": "5/10", "garage": "yes", "beds": "3/2.5", "sqft": "2,097", "price": "$650,000", "hoa": "?", "notes": ""}, {"id": "r1", "kind": "RENT", "address": "515 Robert Daniel Dr.", "area": "Daniel Island", "downtown": "21 min.", "beach": "19 min.", "community": "Wharf 7", "type": "Apartment", "flood": "4/10", "garage": "no", "beds": "3/2", "sqft": "1,395", "price": "$3,395/mo", "hoa": "", "pets": "yes", "notes": ""}, {"id": "r2", "kind": "RENT", "address": "601 Robert Daniel Dr.", "area": "Daniel Island", "downtown": "21 min.", "beach": "19 min.", "community": "The Port House", "type": "Townhome", "flood": "7/10", "garage": "no", "beds": "2/2", "sqft": "1,123", "price": "$2,907/mo", "hoa": "", "pets": "yes", "notes": ""}, {"id": "r3", "kind": "RENT", "address": "455 Seven Farms Dr.", "area": "Daniel Island", "downtown": "24 min.", "beach": "22 min.", "community": "Daniel Island Village", "type": "Apartment", "flood": "7/10", "garage": "looks like maybe", "beds": "3/2", "sqft": "1,704", "price": "$3,800/mo", "hoa": "", "pets": "yes", "notes": ""}, {"id": "r4", "kind": "RENT", "address": "650 Enterprise Blvd.", "area": "Daniel Island", "downtown": "23 min.", "beach": "22 min.", "community": "Cooper River Farms", "type": "Apartment", "flood": "4/10", "garage": "no", "beds": "3/2", "sqft": "1,340", "price": "$2,341/mo", "hoa": "", "pets": "yes", "notes": "Rental term as short as 3 months."}, {"id": "s1", "kind": "SCOUT", "address": "446 Woodland Shores Rd.", "area": "James Island", "downtown": "13 min.", "beach": "20 min. (Folly)", "community": "quiet neighborhood", "type": "Apt. in house", "flood": "", "garage": "", "beds": "", "sqft": "", "price": "Location only", "hoa": "", "notes": ""}, {"id": "s2", "kind": "SCOUT", "address": "2144 Golfview Dr.", "area": "James Island", "downtown": "13 min.", "beach": "20 min. (Folly)", "community": "quiet neighborhood by golf course", "type": "House", "flood": "", "garage": "", "beds": "", "sqft": "", "price": "Location only", "hoa": "", "notes": ""}];
+const comparisons = [{"community": "Mira Vista", "downtown": "Excellent", "beach": "Good", "feel": "Gated, landscaped, resort-like", "space": "Moderate", "cost": "Mid-high", "fit": "9/10"}, {"community": "Pelican Pointe", "downtown": "Fair-good", "beach": "Excellent", "feel": "Newer, elevated buildings, beach-condo feel", "space": "Best", "cost": "High", "fit": "8/10"}, {"community": "Point James", "downtown": "Good", "beach": "Good", "feel": "Older but established", "space": "Moderate", "cost": "Best value", "fit": "7.5/10"}, {"community": "Brigadier", "downtown": "Good", "beach": "Good", "feel": "Basic, highly unit-dependent", "space": "Very variable", "cost": "Low-mid", "fit": "6/10"}, {"community": "The Peninsula", "downtown": "Excellent", "beach": "Good", "feel": "Similar location to Mira Vista", "space": "Moderate", "cost": "Lower than Mira Vista", "fit": "Too much unresolved risk for now"}];
+const STORAGE='chs_scout_v1';
+let scout = JSON.parse(localStorage.getItem(STORAGE)||'{}');
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const mapUrl=p=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.address+', Charleston SC');
+const getState=id=>scout[id]||{rating:'',why:'',note:'',favorite:false};
+
+function saveState(id, patch){
+  scout[id]={...getState(id),...patch};
+  localStorage.setItem(STORAGE,JSON.stringify(scout));
+  renderAll();
+}
+function kindBadge(k){return `<span class="badge kind ${k==='RENT'?'rent':k==='SCOUT'?'scout':''}">${k==='SCOUT'?'LOCATION ONLY':k}</span>`}
+function propertyCard(p){
+  const st=getState(p.id);
+  return `<article class="card property" data-kind="${p.kind}">
+    <div class="badges">${kindBadge(p.kind)}<span class="badge">${esc(p.area)}</span>${st.rating?`<span class="badge">${esc(st.rating)}</span>`:''}</div>
+    <h3>${esc(p.address)}</h3>
+    <div class="sub">${esc(p.community||'Community not noted')} · ${esc(p.type)}</div>
+    <div class="price">${esc(p.price)}</div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>${esc(p.downtown||'—')}</b></div>
+      <div class="fact"><span>Beach</span><b>${esc(p.beach||'—')}</b></div>
+      <div class="fact"><span>BR / BA</span><b>${esc(p.beds||'—')}</b></div>
+      <div class="fact"><span>Flood risk</span><b>${esc(p.flood||'—')}</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="openDetail('${p.id}')">View</button>
+      <a class="btn secondary" href="${mapUrl(p)}" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+      <button class="btn ghost" onclick="saveState('${p.id}',{favorite:${!st.favorite}})">${st.favorite?'❤️ Saved':'♡ Save'}</button>
+    </div>
+  </article>`;
+}
+function scoutCard(p){
+  const st=getState(p.id);
+  const ratings=['😍 Love','🙂 Maybe','😐 Meh','🚫 Nope'];
+  const whys=[['🏡','Actual home'],['📍','Location'],['❤️','Both']];
+  return `<article class="card scout-card">
+    <div class="scout-head"><div>${kindBadge(p.kind)}<h3>${esc(p.address)}</h3><div class="sub">${esc(p.area)} · ${esc(p.community)}</div></div>
+      <a class="btn secondary" href="${mapUrl(p)}" target="_blank" rel="noopener" style="text-decoration:none">Map ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><span>Downtown</span><b>${esc(p.downtown||'—')}</b></div>
+      <div class="fact"><span>Beach</span><b>${esc(p.beach||'—')}</b></div>
+      <div class="fact"><span>Example</span><b>${esc(p.type)}</b></div>
+      <div class="fact"><span>Price clue</span><b>${esc(p.price)}</b></div>
+    </div>
+    <div class="sub"><b>How does this AREA feel?</b></div>
+    <div class="rating-row">${ratings.map(r=>`<button class="rate ${st.rating===r?'selected':''}" onclick="saveState('${p.id}',{rating:'${r}'})">${r}</button>`).join('')}</div>
+    <div class="sub"><b>Why did I save this?</b></div>
+    <div class="why">${whys.map(([i,w])=>`<button class="${st.why===w?'selected':''}" onclick="saveState('${p.id}',{why:'${w}'})">${i} ${w}</button>`).join('')}</div>
+    <textarea class="control" placeholder="Quick impression: pretty streets, traffic, trees, too suburban, love the vibe…" onblur="saveState('${p.id}',{note:this.value})">${esc(st.note)}</textarea>
+    <div class="save-line"><span class="saved">${st.rating?'Saved to your Charleston profile':'Not rated yet'}</span><button class="btn ghost" onclick="saveState('${p.id}',{favorite:${!st.favorite}})">${st.favorite?'❤️ Favorite':'♡ Favorite'}</button></div>
+  </article>`;
+}
+function openDetail(id){
+  const p=properties.find(x=>x.id===id), st=getState(id);
+  document.getElementById('modalContent').innerHTML=`
+    ${kindBadge(p.kind)} <span class="badge">${esc(p.area)}</span>
+    <h2>${esc(p.address)}</h2><div class="sub">${esc(p.community)} · ${esc(p.type)}</div>
+    <div class="detail-grid">
+      ${[['Price / rent',p.price],['Downtown',p.downtown],['Beach',p.beach],['Beds / baths',p.beds],['Square feet',p.sqft],['Flood risk',p.flood],['Garage',p.garage],['HOA',p.hoa],['Pets',p.pets],['Workbook note',p.notes]].filter(x=>x[1]).map(x=>`<div class="detail"><span>${esc(x[0])}</span><b>${esc(x[1])}</b></div>`).join('')}
+    </div>
+    <div class="actions"><a class="btn" href="${mapUrl(p)}" target="_blank" rel="noopener" style="text-decoration:none">Open in Google Maps ↗</a>
+    <button class="btn secondary" onclick="saveState('${p.id}',{favorite:${!st.favorite}});openDetail('${p.id}')">${st.favorite?'❤️ Saved':'♡ Save favorite'}</button></div>
+    ${st.note?`<div class="callout"><b>Your scout note:</b><br>${esc(st.note)}</div>`:''}`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+
+function renderProperties(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const kind=document.getElementById('kindFilter').value, area=document.getElementById('areaFilter').value, home=document.getElementById('homeFilter').value;
+  let rows=properties.filter(p=>(!kind||p.kind===kind)&&(!area||p.area===area)&&(!home||p.type.trim()===home)&&(!q||[p.address,p.area,p.community,p.type].join(' ').toLowerCase().includes(q)));
+  document.getElementById('propertyGrid').innerHTML=rows.length?rows.map(propertyCard).join(''):`<div class="card empty">No matches yet.</div>`;
+}
+function areaStats(){
+  const map={};
+  properties.forEach(p=>{
+    const key=p.area;
+    map[key]??={name:key,properties:[],ratings:[]};
+    map[key].properties.push(p);
+    const r=getState(p.id).rating;if(r)map[key].ratings.push(r);
+  });
+  return Object.values(map);
+}
+const scoreOf=r=>r.startsWith('😍')?4:r.startsWith('🙂')?3:r.startsWith('😐')?2:r.startsWith('🚫')?1:0;
+function renderAreas(){
+  document.getElementById('areaGrid').innerHTML=areaStats().map(a=>{
+    const scores=a.ratings.map(scoreOf), avg=scores.length?scores.reduce((x,y)=>x+y,0)/scores.length:0;
+    const downtown=a.properties.map(p=>parseInt(p.downtown)||99).filter(Number.isFinite);
+    const minD=Math.min(...downtown);
+    const kinds=[...new Set(a.properties.map(p=>p.kind))];
+    return `<article class="card area-card"><div class="eyebrow" style="color:var(--clay);opacity:1">${a.properties.length} saved clues</div><h3>${esc(a.name)}</h3>
+      <div class="sub">${scores.length?`${scores.length} scouting rating${scores.length===1?'':'s'} · average ${avg.toFixed(1)}/4`:'Not scouted yet'}</div>
+      <div class="meter"><i style="width:${avg?avg/4*100:5}%"></i></div>
+      <div class="area-meta"><span class="chip">🚗 closest downtown: ${minD===99?'—':minD+' min'}</span>${kinds.map(k=>`<span class="chip">${k}</span>`).join('')}</div>
+      <div class="actions"><button class="btn" onclick="filterArea('${esc(a.name)}')">See clues</button></div></article>`;
+  }).join('');
+}
+function filterArea(name){switchTab('properties');document.getElementById('areaFilter').value=name;renderProperties()}
+function renderLeaderboard(){
+  let rows=areaStats().map(a=>{
+    const rs=a.ratings.map(scoreOf); return {...a,avg:rs.length?rs.reduce((x,y)=>x+y,0)/rs.length:0,count:rs.length}
+  }).filter(a=>a.count).sort((a,b)=>b.avg-a.avg);
+  document.getElementById('leaderboard').innerHTML=rows.length?rows.map((a,i)=>`<div class="leader-row"><div class="rank">${i+1}</div><div><b>${esc(a.name)}</b><div class="sub">${a.count} rating${a.count===1?'':'s'}</div></div><div><b>${a.avg.toFixed(1)}/4</b></div></div>`).join(''):`<div class="empty">Your leaderboard will appear as soon as you start rating scouting stops.</div>`;
+  const favs=properties.filter(p=>getState(p.id).favorite);
+  document.getElementById('favorites').innerHTML=favs.length?favs.map(propertyCard).join(''):`<div class="card empty">Tap ♡ on any place you want to keep at the top of the pile.</div>`;
+}
+function renderComparison(){
+  document.getElementById('compareTable').innerHTML=`<thead><tr><th>Community</th><th>Downtown</th><th>Folly</th><th>Overall feel</th><th>Space</th><th>Cost</th><th>Your fit</th></tr></thead><tbody>`+
+    comparisons.map(c=>`<tr><td><b>${esc(c.community)}</b></td><td>${esc(c.downtown)}</td><td>${esc(c.beach)}</td><td>${esc(c.feel)}</td><td>${esc(c.space)}</td><td>${esc(c.cost)}</td><td><b>${esc(c.fit)}</b></td></tr>`).join('')+`</tbody>`;
+  document.getElementById('jamesGrid').innerHTML=properties.filter(p=>p.area==='James Island').map(propertyCard).join('');
+}
+function updateStats(){
+  const areas=new Set(properties.map(p=>p.area));
+  const rated=properties.filter(p=>getState(p.id).rating).length;
+  const love=properties.filter(p=>getState(p.id).rating.startsWith('😍')).length;
+  document.getElementById('statProps').textContent=properties.length;
+  document.getElementById('statAreas').textContent=areas.size;
+  document.getElementById('statRated').textContent=rated;
+  document.getElementById('statLove').textContent=love;
+}
+function renderAll(){
+  document.getElementById('scoutList').innerHTML=properties.map(scoutCard).join('');
+  renderProperties();renderAreas();renderLeaderboard();renderComparison();updateStats();
+}
+function switchTab(name){
+  document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===name));
+  document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+['search','kindFilter','areaFilter','homeFilter'].forEach(id=>document.getElementById(id).addEventListener(id==='search'?'input':'change',renderProperties));
+
+[...new Set(properties.map(p=>p.area))].sort().forEach(a=>{let o=document.createElement('option');o.textContent=a;o.value=a;document.getElementById('areaFilter').appendChild(o)});
+
+function exportCSV(){
+  const headers=['Type','Address','Area','Community','Rating','Why Saved','Favorite','Scout Note'];
+  const lines=[headers, ...properties.map(p=>{const s=getState(p.id);return [p.kind,p.address,p.area,p.community,s.rating,s.why,s.favorite?'Yes':'No',s.note]})]
+    .map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  download('charleston-home-scout-notes.csv',lines,'text/csv');
+}
+function exportJSON(){download('charleston-home-scout-backup.json',JSON.stringify({version:1,exported:new Date().toISOString(),scout},null,2),'application/json')}
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function resetScout(){if(confirm('Clear all ratings, favorites and scout notes saved in this browser?')){scout={};localStorage.removeItem(STORAGE);renderAll()}}
+renderAll();
+</script>
+
+
+</body></html>
