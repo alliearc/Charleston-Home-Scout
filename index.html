@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)file:///Users/allisonarcangel/Downloads/index(10).html -->
+<!-- saved from url=(0067)file:///Users/allisonarcangel/Downloads/index(20260818-004336).html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -105,6 +105,16 @@ textarea{min-height:76px;resize:vertical}
   .bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:8px;right:8px;bottom:8px;z-index:30;background:rgba(255,253,248,.95);border:1px solid var(--line);box-shadow:0 8px 30px rgba(23,59,58,.19);backdrop-filter:blur(14px);border-radius:18px;padding:7px}
   .bottom-nav button{border:0;background:transparent;color:var(--muted);font-size:.63rem;padding:4px 1px}.bottom-nav button b{display:block;font-size:1.15rem;margin-bottom:2px}.bottom-nav button.active{color:var(--deep);font-weight:850}
 }
+
+.syncbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px;padding:11px 13px;border-radius:15px;background:#fffdf8;border:1px solid var(--line);box-shadow:0 5px 15px rgba(47,68,62,.05)}
+.syncstatus{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:800}
+.dot{width:9px;height:9px;border-radius:50%;background:#b6bdb9;box-shadow:0 0 0 4px rgba(182,189,185,.18)}
+.dot.live{background:#4c8b71;box-shadow:0 0 0 4px rgba(76,139,113,.15)}
+.dot.warn{background:#c1a15d;box-shadow:0 0 0 4px rgba(193,161,93,.18)}
+.login-card{padding:18px;margin:0 0 14px;background:linear-gradient(135deg,#fffdf8,#eef4ef)}
+.login-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-top:10px}
+@media(max-width:620px){.login-grid{grid-template-columns:1fr}.syncbar{align-items:flex-start;flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -120,6 +130,23 @@ textarea{min-height:76px;resize:vertical}
       <div class="stat"><b id="statLove">0</b><span>❤️ places you both love</span></div>
     </div>
   </header>
+
+  <div id="syncBar" class="syncbar">
+    <div class="syncstatus"><span id="syncDot" class="dot warn"></span><span id="syncText">Sign in to sync both phones</span></div>
+    <button id="signOutBtn" class="btn ghost" style="display:none" onclick="signOutCloud()">Sign out</button>
+  </div>
+
+  <div id="loginCard" class="card login-card" style="">
+    <div class="eyebrow" style="color:var(--clay);opacity:1">Shared Allison + Scott Sync</div>
+    <h2 style="font-family:Georgia,serif;font-weight:500;margin:.35rem 0">Sign in to your shared Scout</h2>
+    <div class="sub">Use the same Charleston Scout account on both phones. Once signed in, ratings, notes and favorites sync through the shared database.</div>
+    <div class="login-grid">
+      <input id="cloudEmail" class="control" type="email" autocomplete="username" placeholder="Email">
+      <input id="cloudPassword" class="control" type="password" autocomplete="current-password" placeholder="Password">
+      <button class="btn" onclick="signInCloud()">Sign in</button>
+    </div>
+    <div id="loginError" class="sub" style="margin-top:8px;color:var(--clay)"></div>
+  </div>
 
   <nav class="tabs">
     <button class="tab active" data-tab="scout">🚗 Scout</button>
@@ -1293,6 +1320,11 @@ textarea{min-height:76px;resize:vertical}
     <div id="bothLove" class="grid"><div class="card empty">Once you both tap 😍 Love on the same stop, it will appear here automatically.</div></div>
     <div class="section-title"><div><h2>Saved Favorites</h2><p>Properties or locations marked ❤️.</p></div></div>
     <div id="favorites" class="grid"><div class="card empty">Tap ♡ on any place you want to keep at the top of the pile.</div></div>
+    <div class="section-title"><div><h2>Shared Scout Sync</h2><p>When signed in, both phones use the same cloud data.</p></div></div>
+    <div class="card" style="padding:16px">
+      <div class="sub"><b>How it works:</b> Allison can rate or type a note on one phone; Scott's phone receives that update through the shared database. The app still keeps a local copy on each phone as a fallback.</div>
+    </div>
+
     <div class="section-title"><div><h2>Take Your Notes With You</h2><p>Export a scouting backup from this browser.</p></div></div>
     <div class="card" style="padding:16px">
       <div class="export">
@@ -1378,11 +1410,20 @@ textarea{min-height:76px;resize:vertical}
   </div>
 </div>
 
+<script src="./index_files/supabase-js@2"></script>
 <script>
 const properties = [{"id": "b1", "listing":"https://www.zillow.com/b/802-kings-oak-ct-charleston-sc-C3DybH/", "kind": "BUY", "address": "802 Kings Oak Ct.", "area": "Daniel Island", "downtown": "25 min.", "beach": "25 min.", "community": "Governors Cay", "type": "Townhome", "flood": "9/10", "garage": "yes/2 car", "beds": "2/2.5", "sqft": "1,791", "price": "$495,000", "hoa": "$412/mo", "notes": ""}, {"id": "b2", "listing":"https://www.zillow.com/homedetails/130-River-Landing-Dr-UNIT-10100-Daniel-Island-SC-29492/65090750_zpid/", "kind": "BUY", "address": "130 River Landing Dr. Unit 10100", "area": "Daniel Island", "downtown": "29 min.", "beach": "25 min.", "community": "Daniels Landing", "type": "Condo", "flood": "6/10", "garage": "no", "beds": "2/2", "sqft": "1,119", "price": "$499,000 (taxes $9,000)", "hoa": "$600/mo", "notes": ""}, {"id": "b3", "listing":"https://www.realtor.com/realestateandhomes-detail/500-Bucksley-Ln-Unit-301_Daniel-Island_SC_29492_M62825-52477", "kind": "BUY", "address": "500 Bucksley Ln. Unit 301", "area": "Daniel Island", "downtown": "24 min.", "beach": "20 min.", "community": "254 Seven Farms Drive", "type": "Condo", "flood": "?", "garage": "no", "beds": "3/2", "sqft": "1,353", "price": "$475,000 (taxes $4,000)", "hoa": "$508/mo", "notes": ""}, {"id": "b4", "listing":"https://www.eastwoodhomes.com/charleston/charleston/bluffs-at-pinefield-townhomes", "kind": "BUY", "address": "The Bluffs at Pinefield Townhomes", "area": "Cainhoy / Daniel Island", "downtown": "29 min.", "beach": "", "community": "Bluffs at Pinefield", "type": "Townhome", "flood": "", "garage": "yes/1 car", "beds": "3/3.5", "sqft": "1,906", "price": "mid-$500s · 4.99% interest rate!", "hoa": "$300/mo", "notes": ""}, {"id": "b5", "listing":"https://www.zillow.com/homedetails/422-Katies-Scenic-Ct-Charleston-SC-29492/441623138_zpid/", "kind": "BUY", "address": "422 Katies Scenic Ct.", "area": "Cainhoy / Daniel Island", "downtown": "22 min.", "beach": "", "community": "Bluffs at Pinefield", "type": "Townhome", "flood": "1/10", "garage": "yes/1 car", "beds": "3/3.5", "sqft": "2,260", "price": "$598,500", "hoa": "$305/mo", "notes": ""}, {"id": "b6", "listing":"https://www.realtor.com/realestateandhomes-detail/1146-Bright-Ct_Charleston_SC_29412_M63068-68672", "kind": "BUY", "address": "1146 Bright Ct.", "area": "James Island", "downtown": "16 min.", "beach": "13 min.", "community": "quiet neighborhood with nice homes & cul-de-sac", "type": "House", "flood": "7/10", "garage": "yes", "beds": "3/2.5", "sqft": "2,432", "price": "$769,000", "hoa": "?", "notes": ""}, {"id": "b7", "kind": "BUY", "address": "815 Soaring Ln.", "area": "James Island", "downtown": "15 min.", "beach": "20–30 min.", "community": "Eaglewood Retreat", "type": "Townhome", "flood": "7/10", "garage": "yes", "beds": "3/2.5", "sqft": "1,848", "price": "$599,000", "hoa": "$337/mo", "notes": ""}, {"id": "b8", "listing":"https://www.realtor.com/realestateandhomes-detail/1749-Lady-Ashley-St_Charleston_SC_29412_M63650-66368", "kind": "BUY", "address": "1749 Lady Ashley St.", "area": "James Island", "downtown": "17 min.", "beach": "13 min.", "community": "avg. neighborhood w/carports", "type": "House", "flood": "5/10", "garage": "no", "beds": "4/2", "sqft": "1,250", "price": "$529,000", "hoa": "?", "notes": ""}, {"id": "b9", "listing":"https://www.zillow.com/homedetails/1826-Telfair-Way-Charleston-SC-29412/82550255_zpid/", "kind": "BUY", "address": "1826 Telfair Way", "area": "James Island", "downtown": "11 min.", "beach": "9 min.", "community": "Mira Vista", "type": "Condo", "flood": "9/10", "garage": "no", "beds": "2/2", "sqft": "1,120", "price": "$385,000 (taxes $4,416)", "hoa": "$611/mo", "notes": ""}, {"id": "b10", "listing":"https://www.zillow.com/homedetails/1530-Fort-Johnson-Rd-APT-1K-Charleston-SC-29412/10896678_zpid/", "kind": "BUY", "address": "1530 Fort Johnson Rd. Apt. 1K", "area": "James Island", "downtown": "16 min.", "beach": "15–20 min.", "community": "Brigadier Condominium", "type": "Condo", "flood": "6/10", "garage": "no", "beds": "2/1.5", "sqft": "1,160", "price": "$265,000 (taxes $1,400)", "hoa": "$525/mo", "notes": ""}, {"id": "b11", "listing":"https://www.redfin.com/SC/Charleston/1530-Fort-Johnson-Rd-29412/unit-1E/home/108090725", "kind": "BUY", "address": "1530 Johnson Rd. Apt. 1E", "area": "James Island", "downtown": "16 min.", "beach": "15–20 min.", "community": "Brigadier Condominium", "type": "Condo", "flood": "6/10", "garage": "no", "beds": "3/2.5", "sqft": "1,472", "price": "$309,900 (taxes $1,400)", "hoa": "$475/mo", "notes": ""}, {"id": "b12", "listing":"https://www.redfin.com/SC/Charleston/1216-Telfair-Way-29412/home/182957584", "kind": "BUY", "address": "1216 Telfair Way", "area": "James Island", "downtown": "11 min.", "beach": "9 min.", "community": "Mira Vista", "type": "Condo", "flood": "9/10", "garage": "no", "beds": "2/2", "sqft": "1,120", "price": "$399,000 (taxes $2,053)", "hoa": "$626/mo", "notes": ""}, {"id": "b13", "listing":"https://www.redfin.com/SC/Charleston/1984-Folly-Rd-29412/unit-B302/home/68688502", "kind": "BUY", "address": "1984 Folly Rd. Unit B302", "area": "James Island", "downtown": "10 min.", "beach": "5 min.", "community": "Pelican Point Villas", "type": "Condo", "flood": "9/10", "garage": "no", "beds": "2/2", "sqft": "1,133", "price": "$419,000 (taxes $3,223)", "hoa": "$645/mo", "notes": ""}, {"id": "b14", "listing":"https://www.zillow.com/homedetails/469-Caledon-Ct-Johns-Island-SC-29455/453458520_zpid/", "kind": "BUY", "address": "469 Caledon Ct.", "area": "Johns Island", "downtown": "19 min.", "beach": "31 min.", "community": "Indigo Grove townhomes", "type": "Townhome", "flood": "6/10", "garage": "yes", "beds": "4/3.5", "sqft": "2,089", "price": "$499,990", "hoa": "?", "notes": ""}, {"id": "b15", "listing":"https://www.zillow.com/homedetails/202-Laurelhurst-Ln-Johns-Island-SC-29455/462801495_zpid/", "kind": "BUY", "address": "202 Laurelhurst Ln.", "area": "Johns Island", "downtown": "21 min.", "beach": "27 min.", "community": "Rhetts Cove Community", "type": "Townhome", "flood": "1/10", "garage": "yes", "beds": "3/2.5", "sqft": "1,957", "price": "$439,900", "hoa": "?", "notes": ""}, {"id": "b16", "listing":"https://www.zillow.com/homedetails/2126-Boykin-Ln-Charleston-SC-29414/247531149_zpid/", "kind": "BUY", "address": "2126 Boykin Ln.", "area": "West Ashley", "downtown": "20 min.", "beach": "31 min.", "community": "Church Creek Landing", "type": "House", "flood": "5/10", "garage": "yes", "beds": "3/2.5", "sqft": "2,097", "price": "$650,000", "hoa": "?", "notes": ""}, {"id": "r1", "listing":"https://www.wharf7charleston.com/", "kind": "RENT", "address": "515 Robert Daniel Dr.", "area": "Daniel Island", "downtown": "21 min.", "beach": "19 min.", "community": "Wharf 7", "type": "Apartment", "flood": "4/10", "garage": "no", "beds": "3/2", "sqft": "1,395", "price": "$3,395/mo", "hoa": "", "pets": "yes", "notes": ""}, {"id": "r2", "listing":"https://www.theporthousedi.com/", "kind": "RENT", "address": "601 Robert Daniel Dr.", "area": "Daniel Island", "downtown": "21 min.", "beach": "19 min.", "community": "The Port House", "type": "Townhome", "flood": "7/10", "garage": "no", "beds": "2/2", "sqft": "1,123", "price": "$2,907/mo", "hoa": "", "pets": "yes", "notes": ""}, {"id": "r3", "listing":"https://danielislandvillage.com/", "kind": "RENT", "address": "455 Seven Farms Dr.", "area": "Daniel Island", "downtown": "24 min.", "beach": "22 min.", "community": "Daniel Island Village", "type": "Apartment", "flood": "7/10", "garage": "looks like maybe", "beds": "3/2", "sqft": "1,704", "price": "$3,800/mo", "hoa": "", "pets": "yes", "notes": ""}, {"id": "r4", "listing":"https://www.cooperriverfarms.com/", "kind": "RENT", "address": "650 Enterprise Blvd.", "area": "Daniel Island", "downtown": "23 min.", "beach": "22 min.", "community": "Cooper River Farms", "type": "Apartment", "flood": "4/10", "garage": "no", "beds": "3/2", "sqft": "1,340", "price": "$2,341/mo", "hoa": "", "pets": "yes", "notes": "Rental term as short as 3 months."}, {"id": "s1", "kind": "SCOUT", "address": "446 Woodland Shores Rd.", "area": "James Island", "downtown": "13 min.", "beach": "20 min. (Folly)", "community": "quiet neighborhood", "type": "Apt. in house", "flood": "", "garage": "", "beds": "", "sqft": "", "price": "Location only", "hoa": "", "notes": ""}, {"id": "s2", "kind": "SCOUT", "address": "2144 Golfview Dr.", "area": "James Island", "downtown": "13 min.", "beach": "20 min. (Folly)", "community": "quiet neighborhood by golf course", "type": "House", "flood": "", "garage": "", "beds": "", "sqft": "", "price": "Location only", "hoa": "", "notes": ""}];
 const comparisons = [{"community": "Mira Vista", "downtown": "Excellent", "beach": "Good", "feel": "Gated, landscaped, resort-like", "space": "Moderate", "cost": "Mid-high", "fit": "9/10"}, {"community": "Pelican Pointe", "downtown": "Fair-good", "beach": "Excellent", "feel": "Newer, elevated buildings, beach-condo feel", "space": "Best", "cost": "High", "fit": "8/10"}, {"community": "Point James", "downtown": "Good", "beach": "Good", "feel": "Older but established", "space": "Moderate", "cost": "Best value", "fit": "7.5/10"}, {"community": "Brigadier", "downtown": "Good", "beach": "Good", "feel": "Basic, highly unit-dependent", "space": "Very variable", "cost": "Low-mid", "fit": "6/10"}, {"community": "The Peninsula", "downtown": "Excellent", "beach": "Good", "feel": "Similar location to Mira Vista", "space": "Moderate", "cost": "Lower than Mira Vista", "fit": "Too much unresolved risk for now"}];
-const STORAGE='chs_scout_v3';
-const LEGACY='chs_scout_v2';
+// --- Shared cloud sync configuration ---
+const SUPABASE_URL = 'https://udvgukytqhfygzzpidtu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_tpiftnsOpPVOtFbP9eH16g_DaRehPVb';
+const CLOUD_CONFIGURED = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PASTE_') && !SUPABASE_KEY.includes('PASTE_');
+let cloud = null;
+let cloudUser = null;
+let realtimeChannel = null;
+
+const STORAGE='chs_scout_v4';
+const LEGACY='chs_scout_v3';
 let scout = JSON.parse(localStorage.getItem(STORAGE)||'null');
 if(scout){
   Object.keys(scout).forEach(id=>{
@@ -1406,10 +1447,23 @@ function listingButton(p){
 }
 const getState=id=>scout[id]||{allisonRating:'',scottRating:'',allisonNote:'',scottNote:'',why:'',favorite:false};
 
-function saveState(id, patch){
-  scout[id]={...getState(id),...patch};
+async function saveState(id, patch){
+  scout[id]={...getState(id),...patch,_updatedAt:new Date().toISOString()};
   localStorage.setItem(STORAGE,JSON.stringify(scout));
   renderAll();
+  if(cloud && cloudUser){
+    const { error } = await cloud.from('scout_state').upsert({
+      id,
+      data: scout[id],
+      updated_at: scout[id]._updatedAt
+    }, {onConflict:'id'});
+    if(error){
+      console.error('Cloud save failed', error);
+      setSyncStatus('Saved locally · cloud retry needed','warn');
+    } else {
+      setSyncStatus('Shared sync is live','live');
+    }
+  }
 }
 function kindBadge(k){return `<span class="badge kind ${k==='RENT'?'rent':k==='SCOUT'?'scout':''}">${k==='SCOUT'?'LOCATION ONLY':k}</span>`}
 function propertyCard(p){
@@ -1576,6 +1630,119 @@ function updateStats(){
   document.getElementById('statRated').textContent=rated;
   document.getElementById('statLove').textContent=love;
 }
+
+function setSyncStatus(message, state=''){
+  const dot=document.getElementById('syncDot');
+  const label=document.getElementById('syncText');
+  if(!dot||!label) return;
+  dot.className='dot'+(state?' '+state:'');
+  label.textContent=message;
+}
+
+async function initCloud(){
+  if(!CLOUD_CONFIGURED){
+    setSyncStatus('Shared sync setup not connected yet','warn');
+    return;
+  }
+  try{
+    cloud = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const {data:{session}} = await cloud.auth.getSession();
+    cloudUser=session?.user||null;
+    if(cloudUser){
+      document.getElementById('signOutBtn').style.display='';
+      document.getElementById('loginCard').style.display='none';
+      await loadCloudState();
+      subscribeRealtime();
+      setSyncStatus('Shared sync is live','live');
+    }else{
+      document.getElementById('loginCard').style.display='';
+      setSyncStatus('Sign in to sync both phones','warn');
+    }
+    cloud.auth.onAuthStateChange(async (event,session)=>{
+      cloudUser=session?.user||null;
+      if(cloudUser){
+        document.getElementById('signOutBtn').style.display='';
+        document.getElementById('loginCard').style.display='none';
+        await loadCloudState();
+        subscribeRealtime();
+        setSyncStatus('Shared sync is live','live');
+      }else{
+        document.getElementById('signOutBtn').style.display='none';
+        document.getElementById('loginCard').style.display='';
+        setSyncStatus('Sign in to sync both phones','warn');
+      }
+    });
+  }catch(err){
+    console.error(err);
+    setSyncStatus('Cloud setup error · local mode still works','warn');
+  }
+}
+
+async function signInCloud(){
+  const email=document.getElementById('cloudEmail').value.trim();
+  const password=document.getElementById('cloudPassword').value;
+  document.getElementById('loginError').textContent='';
+  if(!email||!password){document.getElementById('loginError').textContent='Enter the shared email and password.';return}
+  const {error}=await cloud.auth.signInWithPassword({email,password});
+  if(error) document.getElementById('loginError').textContent=error.message;
+}
+
+async function signOutCloud(){
+  if(cloud) await cloud.auth.signOut();
+}
+
+async function loadCloudState(){
+  if(!cloud||!cloudUser) return;
+  setSyncStatus('Syncing shared Scout…','warn');
+  const {data,error}=await cloud.from('scout_state').select('id,data,updated_at');
+  if(error){console.error(error);setSyncStatus('Cloud read failed · local copy retained','warn');return}
+
+  // Merge per-property by timestamp, then seed missing cloud rows from local data.
+  const remote = Object.fromEntries((data||[]).map(r=>[r.id,{...r.data,_updatedAt:r.updated_at||r.data?._updatedAt}]));
+  const ids = new Set([...Object.keys(scout),...Object.keys(remote)]);
+  const upload=[];
+  ids.forEach(id=>{
+    const l=scout[id], r=remote[id];
+    if(!r && l){
+      upload.push({id,data:l,updated_at:l._updatedAt||new Date().toISOString()});
+    }else if(r && !l){
+      scout[id]=r;
+    }else if(l&&r){
+      const lt=Date.parse(l._updatedAt||0)||0, rt=Date.parse(r._updatedAt||0)||0;
+      if(rt>=lt) scout[id]=r;
+      else upload.push({id,data:l,updated_at:l._updatedAt||new Date().toISOString()});
+    }
+  });
+  localStorage.setItem(STORAGE,JSON.stringify(scout));
+  renderAll();
+  if(upload.length){
+    const {error:upErr}=await cloud.from('scout_state').upsert(upload,{onConflict:'id'});
+    if(upErr) console.error('Initial cloud seed failed',upErr);
+  }
+  setSyncStatus('Shared sync is live','live');
+}
+
+function subscribeRealtime(){
+  if(!cloud||!cloudUser) return;
+  if(realtimeChannel) cloud.removeChannel(realtimeChannel);
+  realtimeChannel=cloud.channel('charleston-scout-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'scout_state'},payload=>{
+      if(payload.eventType==='DELETE'){
+        delete scout[payload.old.id];
+      }else{
+        const row=payload.new;
+        scout[row.id]={...row.data,_updatedAt:row.updated_at||row.data?._updatedAt};
+      }
+      localStorage.setItem(STORAGE,JSON.stringify(scout));
+      renderAll();
+      setSyncStatus('Shared sync is live','live');
+    })
+    .subscribe(status=>{
+      if(status==='SUBSCRIBED') setSyncStatus('Shared sync is live','live');
+    });
+}
+
+
 function renderAll(){
   document.getElementById('scoutList').innerHTML=properties.map(scoutCard).join('');
   renderProperties();renderAreas();renderLeaderboard();renderComparison();updateStats();
@@ -1598,8 +1765,9 @@ function exportCSV(){
 }
 function exportJSON(){download('charleston-home-scout-backup.json',JSON.stringify({version:1,exported:new Date().toISOString(),scout},null,2),'application/json')}
 function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
-function resetScout(){if(confirm('Clear all ratings, favorites and scout notes saved in this browser?')){scout={};localStorage.removeItem(STORAGE);localStorage.removeItem(LEGACY);renderAll()}}
+function resetScout(){if(confirm('Clear only this browser’s local copy? Shared cloud data will remain and can sync back after sign-in.')){scout={};localStorage.removeItem(STORAGE);localStorage.removeItem(LEGACY);renderAll()}}
 renderAll();
+initCloud();
 </script>
 
 
